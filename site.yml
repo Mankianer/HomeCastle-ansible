@@ -5,11 +5,15 @@
   gather_facts: true
 
   vars:
-    microk8s_channel: "1.32/stable"
 
     bootstrap_timer_git_repo: "https://github.com/Mankianer/HomeCastle-ansible.git"
     bootstrap_timer_user: "root" # TODO: User anpassen
     bootstrap_timer_ssh_key: false # TODO: SSH-Key erstellen
+
+    microk8s_primary_user: "manki"
+    microk8s_channel: "1.32/stable"
+    microk8s_addons_extra:
+      - registry
 
   # ─── optionale Vorbedingungen ──────────────────────────
   pre_tasks:

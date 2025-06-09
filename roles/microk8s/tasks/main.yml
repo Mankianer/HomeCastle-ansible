@@ -1,0 +1,60 @@
+---
+- name: "Install microk8s snap (channel {{ microk8s_channel }})"
+  community.general.snap:
+    name: microk8s
+    classic: true
+    channel: "{{ microk8s_channel }}"
+    state: present
+  register: snap_result
+  notify: Restart microk8s
+  tags: install
+
+- name: "Ensure ansible_user is in microk8s group. User: {{ microk8s_primary_user }}"
+  ansible.builtin.user:
+    name: "{{ microk8s_primary_user }}"
+    groups: microk8s
+    append: true
+  tags: usermod
+
+- name: "Wait for microk8s to be Ready"
+  ansible.builtin.command: microk8s status --wait-ready
+  changed_when: false
+  tags: wait
+
+- name: "Enable requested add-ons"
+  ansible.builtin.command: >
+    microk8s enable {{ item }}
+  args:
+    creates: "/var/snap/microk8s/common/var/log/{{ item }}.enabled"
+  loop: "{{ (microk8s_addons_default + microk8s_addons_extra) | unique }}"
+  tags: addons
+
+- name: "Wait until all system pods are Ready"
+  ansible.builtin.command: >
+    microk8s kubectl wait --for=condition=Ready pods --all --all-namespaces --timeout=300s
+  changed_when: false
+  tags: wait
+
+- name: "Copy kubeconfig to user context"
+  when: microk8s_copy_kubeconfig
+  tags: kubeconfig
+  block:
+    - name: Ensure .kube dir exists
+      ansible.builtin.file:
+        path: "{{ microk8s_kubeconfig_path }}"
+        state: directory
+        owner: "{{ microk8s_primary_user }}"
+        mode: "0700"
+
+    - name: Export kubeconfig
+      ansible.builtin.command: >
+        microk8s config
+      register: kubeconfig_raw
+      changed_when: false
+
+    - name: Write kubeconfig
+      ansible.builtin.copy:
+        dest: "{{ microk8s_kubeconfig_path }}/config"
+        content: "{{ kubeconfig_raw.stdout }}"
+        owner: "{{ microk8s_primary_user }}"
+        mode: "0600"
