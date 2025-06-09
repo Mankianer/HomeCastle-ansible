@@ -27,8 +27,8 @@
     - role: host_hardening
       tags: hardening
 
-#    - role: bootstrap_timer
-#      tags: bootstrap
+    - role: bootstrap_timer
+      tags: bootstrap
 #
 #    - role: microk8s
 #      tags: k8s
