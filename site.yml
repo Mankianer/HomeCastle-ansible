@@ -33,9 +33,9 @@
 
     - role: bootstrap_timer
       tags: bootstrap
-#
-#    - role: microk8s
-#      tags: k8s
-#
+
+    - role: microk8s
+      tags: k8s
+
 #    - role: fluxcd
 #      tags: flux
