@@ -1,0 +1,6 @@
+galaxy_info:
+  author: Mankianer
+  min_ansible_version: "2.15"
+  license: MIT
+  description: "Bootstrap timer for Ansible pull operations"
+dependencies: []

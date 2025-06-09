@@ -16,7 +16,7 @@
     regexp: '^#?PasswordAuthentication'
     line: 'PasswordAuthentication no'
     create: false
-  notify: reload ssh
+  notify: Reload SSH
   tags: ssh
 
 - name: Set custom SSH port
@@ -25,7 +25,7 @@
     regexp: '^#?Port'
     line: "Port {{ host_hardening_ssh_port }}"
     create: false
-  notify: reload ssh
+  notify: Reload SSH
   when: host_hardening_ssh_port != 22
   tags: ssh
 
@@ -70,7 +70,7 @@
     src: jail.local.j2
     dest: /etc/fail2ban/jail.local
     mode: "0644"
-  notify: restart fail2ban
+  notify: Restart Fail2ban
   tags: fail2ban
 
 # ── Unattended-Upgrades ──────────────────────────────────

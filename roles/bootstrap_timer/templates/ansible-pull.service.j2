@@ -1,0 +1,15 @@
+[Unit]
+Description=Apply configuration via ansible-pull
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User={{ bootstrap_timer_user }}
+Environment="ANSIBLE_CONFIG={{ bootstrap_timer_workdir }}/ansible.cfg"
+Environment="GIT_SSH_COMMAND=ssh -i {{ bootstrap_timer_ssh_key }} -o IdentitiesOnly=yes"
+ExecStart=/usr/bin/ansible-pull \
+-U {{ bootstrap_timer_git_repo }} \
+-C {{ bootstrap_timer_branch }} \
+-d {{ bootstrap_timer_workdir }} \
+-i localhost, {{ bootstrap_timer_playbook }}

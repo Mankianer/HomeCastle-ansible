@@ -1,0 +1,8 @@
+---
+bootstrap_timer_git_repo: "git@github.com:YOURUSER/odroid-gitops.git"
+bootstrap_timer_branch: "main"
+bootstrap_timer_workdir: "/opt/ansible"
+bootstrap_timer_interval: "30min"   # → OnUnitActiveSec
+bootstrap_timer_user: "root"    # Nutzer, der ansible-pull ausführt
+bootstrap_timer_ssh_key: "/root/.ssh/id_ed25519"
+bootstrap_timer_playbook: "site.yml"

@@ -1,0 +1,50 @@
+---
+- name: "Ensure bootstrap_timer_workdir exists: {{ bootstrap_timer_workdir }} "
+  ansible.builtin.file:
+    path: "{{ bootstrap_timer_workdir }}"
+    state: directory
+    owner: "{{ bootstrap_timer_user }}"
+    group: "{{ bootstrap_timer_user }}"
+    mode: "0755"
+  tags: bootstrap
+
+- name: Install required packages
+  ansible.builtin.apt:
+    name:
+      - git
+      - ansible-core
+    state: present
+    update_cache: true
+  tags: packages
+
+- name: Deploy ansible-pull service unit
+  ansible.builtin.template:
+    src: ansible-pull.service.j2
+    dest: /etc/systemd/system/ansible-pull.service
+    mode: "0644"
+  notify:
+    - Reload systemd
+    - Restart ansible-pull timer
+  tags: systemd
+
+- name: Deploy ansible-pull timer unit
+  ansible.builtin.template:
+    src: ansible-pull.timer.j2
+    dest: /etc/systemd/system/ansible-pull.timer
+    mode: "0644"
+  notify:
+    - Reload systemd
+    - Restart ansible-pull timer
+  tags: systemd
+
+- name: Trigger initial pull (idempotent)
+  ansible.builtin.command: >
+    ansible-pull -U {{ bootstrap_timer_git_repo }}
+                 -C {{ bootstrap_timer_branch }}
+                 -d {{ bootstrap_timer_workdir }}
+                 -i localhost, {{ bootstrap_timer_playbook }}
+  args:
+    creates: "{{ bootstrap_timer_workdir }}/.git"
+  register: initial_pull
+  changed_when: "'changed=0' not in initial_pull.stdout"
+  tags: bootstrap

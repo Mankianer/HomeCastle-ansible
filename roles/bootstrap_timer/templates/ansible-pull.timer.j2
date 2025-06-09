@@ -1,0 +1,10 @@
+[Unit]
+Description=Run ansible-pull every {{ bootstrap_timer_interval }}
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec={{ bootstrap_timer_interval }}
+Unit=ansible-pull.service
+
+[Install]
+WantedBy=timers.target
