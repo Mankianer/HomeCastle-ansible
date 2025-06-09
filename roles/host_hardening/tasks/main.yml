@@ -1,10 +1,4 @@
 ---
-- name: Check if community.general.ufw is available
-  ansible.builtin.assert:
-    that: "'community.general.ufw' in ansible_builtin_modules or 'community.general.ufw' in ansible_collections"
-    fail_msg: "Das Modul community.general.ufw ist nicht installiert. Installiere es mit 'ansible-galaxy collection install community.general'."
-  tags: always
-
 - name: Ensure required packages are present
   ansible.builtin.apt:
     name:
