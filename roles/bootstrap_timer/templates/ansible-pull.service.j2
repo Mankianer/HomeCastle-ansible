@@ -6,7 +6,6 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 User={{ bootstrap_timer_user }}
-Environment="ANSIBLE_CONFIG={{ bootstrap_timer_workdir }}/ansible.cfg"
 {% if bootstrap_timer_ssh_key %}
     Environment="GIT_SSH_COMMAND=ssh -i {{ bootstrap_timer_ssh_key }} -o IdentitiesOnly=yes"
 {% endif %}
