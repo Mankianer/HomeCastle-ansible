@@ -1,0 +1,34 @@
+- name: Odroid-GitOps bootstrap & maintenance
+  hosts: localhost
+  connection: local
+  become: true
+  gather_facts: true
+
+  vars:
+    git_repo: "git@github.com:Mankianer/HomeCastle-ansible.git"
+    microk8s_channel: "1.32/stable"
+
+  # ─── optionale Vorbedingungen ──────────────────────────
+  pre_tasks:
+    - name: Ensure base packages required by roles are present
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - python3
+        - rsync
+      tags: prerequisites
+
+  # ─── Rollen in definierter Reihenfolge ─────────────────
+  roles:
+    - role: host_hardening
+      tags: hardening
+
+#    - role: bootstrap_timer
+#      tags: bootstrap
+#
+#    - role: microk8s
+#      tags: k8s
+#
+#    - role: fluxcd
+#      tags: flux

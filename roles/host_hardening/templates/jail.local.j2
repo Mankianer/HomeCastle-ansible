@@ -1,0 +1,9 @@
+[DEFAULT]
+bantime  = {{ host_hardening_bantime }}
+findtime = {{ host_hardening_findtime }}
+maxretry = {{ host_hardening_maxretry }}
+
+[sshd]
+enabled  = true
+port     = {{ host_hardening_ssh_port }}
+logpath  = %(sshd_log)s

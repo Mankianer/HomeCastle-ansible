@@ -1,0 +1,14 @@
+---
+# Firewall
+host_hardening_ssh_port: 22
+host_hardening_open_tcp_ports: ["{{ host_hardening_ssh_port }}"]
+host_hardening_open_udp_ports: []
+
+# Fail2Ban
+host_hardening_bantime: 15m
+host_hardening_findtime: 10m
+host_hardening_maxretry: 5
+
+# Unattended-Upgrades
+host_hardening_auto_reboot: true
+host_hardening_auto_reboot_time: "03:30"
