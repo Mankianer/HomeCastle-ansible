@@ -1,0 +1,65 @@
+// roles/bootstrap_timer/README.adoc
+= Ansible Role: bootstrap_timer
+
+This role sets up a systemd timer and service to regularly run `ansible-pull` for automated configuration management.
+
+== Requirements
+
+* Ansible >= 2.15
+* Supported on Ubuntu/Debian systems
+
+== Role Variables
+
+[cols="1,1,2",options="header"]
+|===
+|Variable |Default |Description
+
+|`bootstrap_timer_git_repo`
+|`git@github.com:YOURUSER/odroid-gitops.git`
+|Git repository for the playbook
+
+|`bootstrap_timer_branch`
+|`main`
+|Git branch to pull
+
+|`bootstrap_timer_workdir`
+|`/opt/ansible`
+|Working directory for ansible-pull
+
+|`bootstrap_timer_interval`
+|`30min`
+|Interval for the timer
+
+|`bootstrap_timer_user`
+|`root`
+|User to run ansible-pull
+
+|`bootstrap_timer_ssh_key`
+|`/root/.ssh/id_ed25519`
+|SSH key for repository access (set to `false` to disable)
+
+|`bootstrap_timer_playbook`
+|`site.yml`
+|Playbook to execute
+|===
+
+== Example Playbook
+
+[source,yaml]
+----
+- hosts: localhost
+  roles:
+    - role: bootstrap_timer
+----
+
+== Handlers
+
+* Reload systemd
+* Restart ansible-pull timer
+
+== ToDo
+
+* [ ] Add support for more Linux distributions
+* [ ] Improve error handling for ansible-pull failures
+* [ ] Parameterize systemd unit templates further
+* [ ] Add tests for role idempotency

@@ -9,7 +9,7 @@
 
     bootstrap_timer_git_repo: "git@github.com:Mankianer/HomeCastle-ansible.git"
     bootstrap_timer_user: "root" # TODO: User anpassen
-    bootstrap_timer_ssh_key: "/root/.ssh/id_ed25519" # TODO: SSH-Key erstellen
+    bootstrap_timer_ssh_key: false # TODO: SSH-Key erstellen
 
   # ─── optionale Vorbedingungen ──────────────────────────
   pre_tasks:

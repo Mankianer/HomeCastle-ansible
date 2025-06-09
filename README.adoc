@@ -1,0 +1,39 @@
+// README.adoc (general)
+= HomeCastle Ansible Playbooks
+
+This repository provides a modular Ansible setup for bootstrapping and hardening hosts, including automated configuration pulls and security best practices.
+
+== Structure
+
+* `roles/bootstrap_timer`: Sets up a systemd timer for regular `ansible-pull`
+* `roles/host_hardening`: Applies security hardening (SSH, UFW, Fail2Ban, unattended-upgrades)
+* `site.yml`: Main playbook to orchestrate roles
+
+== Quickstart
+
+. Install required collections:
++
+[source,shell]
+----
+ansible-galaxy collection install community.general
+----
+
+. Run the playbook:
++
+[source,shell]
+----
+ansible-playbook -i localhost, site.yml
+----
+
+== Requirements
+
+* Ansible >= 2.15
+* Ubuntu/Debian system
+* `community.general` collection
+
+== ToDo
+
+* [ ] Add CI for linting and testing
+* [ ] Add more roles (e.g., monitoring, backup)
+* [ ] Improve documentation and usage examples
+* [ ] Add support for more operating systems

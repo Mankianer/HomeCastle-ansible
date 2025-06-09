@@ -1,0 +1,71 @@
+// roles/host_hardening/README.adoc
+= Ansible Role: host_hardening
+
+This role hardens a host by configuring SSH, UFW firewall, Fail2Ban, and unattended-upgrades.
+
+== Requirements
+
+* Ansible >= 2.15
+* `community.general` collection (for UFW module)
+* Supported on Ubuntu/Debian systems
+
+== Role Variables
+
+[cols="1,1,2",options="header"]
+|===
+|Variable |Default |Description
+
+|`host_hardening_ssh_port`
+|`22`
+|SSH port to use
+
+|`host_hardening_open_tcp_ports`
+|`["{{ host_hardening_ssh_port }}"]`
+|List of allowed TCP ports
+
+|`host_hardening_open_udp_ports`
+|`[]`
+|List of allowed UDP ports
+
+|`host_hardening_bantime`
+|`15m`
+|Fail2Ban ban time
+
+|`host_hardening_findtime`
+|`10m`
+|Fail2Ban find time
+
+|`host_hardening_maxretry`
+|`5`
+|Fail2Ban max retries
+
+|`host_hardening_auto_reboot`
+|`true`
+|Enable automatic reboot after upgrades
+
+|`host_hardening_auto_reboot_time`
+|`03:30`
+|Time for automatic reboot
+|===
+
+== Example Playbook
+
+[source,yaml]
+----
+- hosts: all
+  roles:
+    - role: host_hardening
+----
+
+== Handlers
+
+* Reload SSH
+* Restart Fail2Ban
+* Reload UFW
+
+== ToDo
+
+* [ ] Add support for more distributions and firewalls
+* [ ] Make Fail2Ban configuration more flexible
+* [ ] Add more SSH hardening options
+* [ ] Add tests for firewall rules

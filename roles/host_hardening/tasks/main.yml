@@ -1,4 +1,10 @@
 ---
+- name: Check if community.general.ufw is available
+  ansible.builtin.assert:
+    that: "'community.general.ufw' in ansible_builtin_modules or 'community.general.ufw' in ansible_collections"
+    fail_msg: "Das Modul community.general.ufw ist nicht installiert. Installiere es mit 'ansible-galaxy collection install community.general'."
+  tags: always
+
 - name: Ensure required packages are present
   ansible.builtin.apt:
     name:
@@ -43,12 +49,20 @@
     direction: incoming
   tags: ufw
 
+- name: Ensure SSH port is in open TCP ports
+  ansible.builtin.set_fact:
+    host_hardening_effective_tcp_ports: >-
+      {{
+        (host_hardening_open_tcp_ports + [host_hardening_ssh_port])
+        | unique
+      }}
+
 - name: Allow configured TCP ports
   community.general.ufw:
     rule: allow
     port: "{{ item }}"
     proto: tcp
-  loop: "{{ host_hardening_open_tcp_ports }}"   # TODO: add ssh port here
+  loop: "{{ host_hardening_effective_tcp_ports }}"   # TODO: add ssh port here
   tags: ufw
 
 - name: Allow configured UDP ports
