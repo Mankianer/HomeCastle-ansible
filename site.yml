@@ -14,17 +14,18 @@
     microk8s_version: "1.32/stable"
     microk8s_plugins:
       ingress: true
+      helm3: false
 
-#    microk8s_primary_user: "manki"
-#    microk8s_channel: "1.32/stable"
-#    microk8s_addons_extra:
-#      - registry
+    #    microk8s_primary_user: "manki"
+    #    microk8s_channel: "1.32/stable"
+    #    microk8s_addons_extra:
+    #      - registry
 
-#    fluxcd_bootstrap_provider: "github"
-#    fluxcd_repo_owner: "Mankianer"
-#    fluxcd_repo_name: "HomeCastle"
-#    fluxcd_repo_branch: "main"
-#    fluxcd_repo_path: "clusters/castle-kingdom"
+    #    fluxcd_bootstrap_provider: "github"
+    #    fluxcd_repo_owner: "Mankianer"
+    #    fluxcd_repo_name: "HomeCastle"
+    #    fluxcd_repo_branch: "main"
+    #    fluxcd_repo_path: "clusters/castle-kingdom"
 
     # ── Auth ──────────────────────────────────────────────────────
     flux_ssh_identity: "/root/.ssh/id_ed25519"
@@ -50,7 +51,9 @@
 
     - role: istvano.microk8s
       vars:
-        user: "manki"
+        users:
+          - manki
+
 
 #    - role: microk8s
 #      tags: k8s
