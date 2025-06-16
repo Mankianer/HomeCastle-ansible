@@ -1,0 +1,13 @@
+---
+collections:
+  - name: community.general
+    version: ">=10.7.0,<11.0.0"
+  - name: community.crypto
+  - name: community.sops
+    version: ">=2.0.5,<3.0.0"
+
+roles:
+  - name: istvano.microk8s
+    version: "1.28.1"
+  - name: darkwizard242.flux
+    version: "1.5.5"

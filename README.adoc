@@ -15,7 +15,8 @@ This repository provides a modular Ansible setup for bootstrapping and hardening
 +
 [source,shell]
 ----
-ansible-galaxy collection install community.general
+ansible-galaxy install -r requirements.yml
+ansible-galaxy collection install -r requirements.yml
 ----
 
 . Run the playbook:
@@ -36,4 +37,5 @@ ansible-playbook -i localhost, site.yml
 * [ ] Add CI for linting and testing
 * [ ] Add more roles (e.g., monitoring, backup)
 * [ ] Improve documentation and usage examples
+* [ ] Automate requirements.yml update
 * [ ] Add support for more operating systems
