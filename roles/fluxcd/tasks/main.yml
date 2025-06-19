@@ -1,21 +1,14 @@
 ---
-- name: Ensure Flux CLI is present via Homebrew
-  become_user: "{{ linuxbrew_user_name }}"
-  become: true
-  community.general.homebrew:
-    name: fluxcd/tap/flux
-    state: present
-
-- name: Add fluxcd tap
-  become_user: "{{ linuxbrew_user_name }}"
-  become: true
+- name: "Add fluxcd tap : {{ fluxcd_linuxbrew_user_name }}"
+  become_user: "{{ fluxcd_linuxbrew_user_name }}"
+  become: false
   community.general.homebrew_tap:
     name: fluxcd/tap
     path: "{{ fluxcd_linuxbrew_prefix_user }}"
     state: present
 
 - name: Install Flux CLI
-  become_user: "{{ linuxbrew_user_name }}"
+  become_user: "{{ fluxcd_linuxbrew_user_name }}"
   become: true
   community.general.homebrew:
     name: flux
