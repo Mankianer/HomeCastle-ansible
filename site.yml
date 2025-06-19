@@ -4,6 +4,9 @@
   become: true
   gather_facts: true
 
+  environment:
+    PATH: "/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:{{ ansible_env.PATH }}"
+
   vars:
 
     bootstrap_timer_git_repo: "https://github.com/Mankianer/HomeCastle-ansible.git"
