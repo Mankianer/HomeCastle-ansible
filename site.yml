@@ -14,7 +14,6 @@
     microk8s_version: "1.32/stable"
     microk8s_plugins:
       ingress: true
-      helm3: false
 
     #    microk8s_primary_user: "manki"
     #    microk8s_channel: "1.32/stable"
@@ -52,5 +51,9 @@
     - role: microk8s
       tags: k8s
 
-#    - role: fluxcd
-#      tags: flux
+    - role: markosamuli.linuxbrew
+      vars:
+        linuxbrew_use_installer: true
+
+    - role: fluxcd
+      tags: flux

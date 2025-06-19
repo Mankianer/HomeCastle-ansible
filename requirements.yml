@@ -11,3 +11,5 @@ roles:
     version: "1.28.1"
   - name: darkwizard242.flux
     version: "1.5.5"
+  - name: markosamuli.linuxbrew
+    version: "v2.0.2"

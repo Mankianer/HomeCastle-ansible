@@ -1,0 +1,13 @@
+= Ansible Role: fluxcd Roles
+
+This role is part of the `fluxcd` Ansible roles collection and is used to set up FluxCD in a Kubernetes environment. It is designed to be used in conjunction with other roles in the collection.
+Diese Rolle kümmert sich um die SetUp von FluxCD. Dazu werden unterschiedliche Rollen verwendet, die jeweils spezifische Aufgaben übernehmen.
+
+
+== Functionality
+
+* Installs FluxCD CLI Tools (via Brew)
+    * Installs and checks for updates of the FluxCD CLI tools and updates them if configured.
+* Bootstraps FluxCD
+    * Checks if FluxCD is already bootstrapped and if not, bootstraps it using the provided configuration.
+    * Sets Up Sops with new keys if configured.

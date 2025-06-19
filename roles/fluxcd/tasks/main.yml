@@ -1,0 +1,5 @@
+---
+- name: Ensure Flux CLI is present via Homebrew
+  community.general.homebrew:
+    name: fluxcd/tap/flux
+    state: present
