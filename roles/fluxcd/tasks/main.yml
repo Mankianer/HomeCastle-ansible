@@ -8,7 +8,7 @@
 
 - name: Install Flux CLI
   become_user: "{{ fluxcd_linuxbrew_user_name }}"
-  become: false
+  become: true
   community.general.homebrew:
     name: fluxcd/tap/flux
     state: present
