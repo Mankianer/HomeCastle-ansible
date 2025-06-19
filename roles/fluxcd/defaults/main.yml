@@ -1,1 +1,3 @@
 ---
+fluxcd_linuxbrew_user_name: "{{ linuxbrew_user_name | default('linuxbrew') }}"
+fluxcd_linuxbrew_prefix_user: "{{ linuxbrew_prefix_user | default('/home/'{{ fluxcd_linuxbrew_user_name }}'/.linuxbrew') }}"
