@@ -52,5 +52,8 @@
     - role: microk8s
       tags: k8s
 
+    - role: linuxbrew
+      tags: linuxbrew
+
     - role: fluxcd
       tags: flux
