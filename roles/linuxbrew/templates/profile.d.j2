@@ -1,4 +1,4 @@
 # Managed by Ansible – do not edit manually
-if [ -d {{ linuxbrew_prefix_user }} ]; then
-    eval "$({{ linuxbrew_prefix_user }}/bin/brew shellenv)"
+if [ -d /home/{{ linuxbrew_user_name }} ]; then
+    eval "$(/home/{{ linuxbrew_user_name }}/bin/brew shellenv)"
 fi
